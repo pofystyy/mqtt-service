@@ -1,0 +1,18 @@
+:amqp:
+  :user: <%= ENV['RABBIT_MQ_USER'] || 'guest' %>
+  :pass: <%= ENV['RABBIT_MQ_PASS'] || 'guest' %>
+  :host: <%= ENV['RABBIT_MQ_HOST'] || 'localhost' %>
+  :port: <%= ENV['RABBIT_MQ_PORT'] || '5672'%>
+:exchange: <%= ENV['RABBIT_MQ_EXCHANGE'] || 'inrepublic.mqtt.send' %>
+:exchange_options:
+  :type: topic
+  :durable: true
+:queue_options:
+  :durable: true
+:heartbeat: 2
+:workers: 2
+:threads: 10 # Threadpool size (good to match prefetch)
+:prefetch: 3
+:timeout_job_after: 60 # in seconds
+:retry_timeout: 300_000 # in milliseconds. So 5 minutes now
+:retry_max_times: 5
