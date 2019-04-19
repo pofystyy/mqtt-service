@@ -15,7 +15,7 @@ module Mqtt
     end
 
     def deliver(topic:, message:)
-      raise MissingParamException, "error: Topic name cannot be empty" if topic.nil? || topic.empty?
+      raise(MissingParamException, "error: Topic name cannot be empty") if topic.nil? || topic.empty?
 
       process_result(@client.publish(topic, message, retain=false))
     end
