@@ -7,7 +7,7 @@ class MqttWorker
   include Sneakers::Testing
 
   def self.run
-    Sneakers::Testing.from_queue 'inrepublic.mqtt.send'
+    Sneakers::Testing.from_queue 'inrepublic.mqtt'
   end
 
   def work_with_params(data)
