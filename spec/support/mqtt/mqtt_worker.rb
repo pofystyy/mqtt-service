@@ -7,14 +7,14 @@ class MqttWorker
   include Sneakers::Testing
 
   def self.run
-    Sneakers::Testing.from_queue 'test.send'
+    Sneakers::Testing.from_queue 'inrepublic.mqtt.send'
   end
 
   def work_with_params(data)
     deserialized_msg, _delivery_info, metadata = data
 
     Sneakers::Testing.logger_info "#{self.class} New message. Body: #{deserialized_msg}"
-    msg = JSON.parse(deserialized_msg, symbolize_names: true)
+    msg = JSON.parse(JSON.parse(deserialized_msg, symbolize_names: true), symbolize_names: true)
     execute(msg)
     Sneakers::Testing.logger_info "#{self.class} Processed without errors"
     # ack!

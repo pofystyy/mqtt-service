@@ -8,7 +8,7 @@ module Sneakers
         output = []
         connection.start
         channel  = connection.create_channel
-        exchange = channel.direct('test')
+        exchange = channel.topic('inrepublic_test')
         queue = channel.queue(queue).bind(exchange, :routing_key => queue)
 
         queue.subscribe do |delivery_info, metadata, payload|
