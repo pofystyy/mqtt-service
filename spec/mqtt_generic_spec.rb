@@ -7,13 +7,14 @@ RSpec.describe Mqtt::Generic do
     expect(Mqtt::Generic.new.inspect).to include "MQTT::Client"
   end
 
-  it "return true if passed walid data" do
+  it "return true if passed valid data" do
     msg = { topic: 'inrepublic', message: 'message' }
     expect(Mqtt::Generic.deliver(msg: msg)).to eq true
   end
 
   it "return true if passed valid data" do
-    expect(Mqtt::Generic.new.deliver(topic: 'inrepublic', message: 'message')).to eq true
+    msg = { device_token: 'dofxnAhnLnA', message: 'message' }
+    expect(Mqtt::Generic.deliver(msg: msg)).to eq true
   end
 
   it "return exception if passed invalid data" do

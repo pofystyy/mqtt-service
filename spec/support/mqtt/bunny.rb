@@ -32,7 +32,7 @@ module Bunny
 
       channel = RabbitWrapper.channel
       exchange = channel.topic('inrepublic_test')
-      queue = channel.queue('inrepublic.mqtt.send')
+      queue = channel.queue('inrepublic.mqtt')
       queue.bind(exchange, :routing_key => queue.name)
 
       payload = data
