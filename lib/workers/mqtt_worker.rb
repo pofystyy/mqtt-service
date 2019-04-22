@@ -5,6 +5,7 @@ class MqttWorker
              arguments: { 'x-dead-letter-exchange': 'inrepublic.mqtt.send-retry' }
   # Payload:
   # {
+  #  # device_token: 'dofxnAhnLnA',
   #   topic: 'inrepublic',
   #   message: 'message'
   # }
