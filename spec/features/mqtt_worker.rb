@@ -11,14 +11,9 @@ RSpec.describe MqttWorker do
     expect(MqttWorker.run).to eq "MqttWorker Processed without errors"
   end
 
-  it "should be exception if path is not present" do
+  it "should be true if passed valid data" do
     Bunny.create_rabbit_queue_with_data('{"message":"message"}')
-    expect(MqttWorker.run).to start_with "MqttWorker Failed to proccess with exception error: Topic name cannot be empty"
-  end
-
-  it "should be exception if topic is empty" do
-    Bunny.create_rabbit_queue_with_data('{"topic":"","message":"message"}')
-    expect(MqttWorker.run).to start_with "MqttWorker Failed to proccess with exception error: Topic name cannot be empty"
+    expect(MqttWorker.run).to start_with "MqttWorker Processed without errors"
   end
 
   it "should be exception if device_token is empty" do
