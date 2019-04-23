@@ -9,11 +9,11 @@ Add paths to build queues in MQTT broker
   :device_token: 'queue/devices/'     # queue name for direct messaging. Should end '/' to add at the end device_token
 ~~~
 
-Add settings line to connect to MQTT::Client
+Add data to connect to MQTT::Client
 ~~~yml
 # mqtt_service/config/mqtt.yml
 
-:mqtt:
+:settings_line:
   :host: 'localhost'
   :port: 8883
   :ssl: true
