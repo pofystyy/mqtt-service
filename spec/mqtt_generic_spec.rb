@@ -18,21 +18,6 @@ RSpec.describe Mqtt::Generic do
   end
 
   it "should be exception if passed invalid data" do
-    expect { Mqtt::Generic.deliver( msg: { topic: nil, message: 'message' } ) }.to \
-      raise_error(Mqtt::Generic::MissingParamException, "error: Topic name cannot be empty")
-  end
-
-  it "should be exception if passed invalid data" do
-    expect { Mqtt::Generic.deliver( msg: { topic: '', message: 'message' } ) }.to \
-      raise_error(Mqtt::Generic::MissingParamException, "error: Topic name cannot be empty")
-  end
-
-  it "should be exception if passed invalid data" do
-    expect { Mqtt::Generic.deliver( msg: { device_token: nil, message: 'message' } ) }.to \
-      raise_error(Mqtt::Generic::MissingParamException, "error: Topic name cannot be empty")
-  end
-
-  it "should be exception if passed invalid data" do
     expect { Mqtt::Generic.deliver( msg: { device_token: '', message: 'message' } ) }.to \
       raise_error(Mqtt::Generic::MissingParamException, "error: Topic name cannot be empty")
   end
@@ -50,27 +35,35 @@ RSpec.describe Mqtt::Generic do
   end
 
   it "method .config should be a class Hash" do
-    expect(Mqtt::Generic.new.config.class).to eq Hash
+    expect(Mqtt::Generic.new.config(:service).class).to eq Hash
   end
 
-  it "method .config should include :path key" do
-    expect(Mqtt::Generic.new.config).to have_key(:path)
+  it "should include :settings_line key" do
+    expect(Mqtt::Generic.new.config(:mqtt)).to have_key(:settings_line)
+  end
+
+  it "should include :path key" do
+    expect(Mqtt::Generic.new.config(:service)).to have_key(:path)
   end
 
   it ":path key should include :topic key" do
-    expect(Mqtt::Generic.new.config[:path]).to have_key(:topic)
+    conf = Mqtt::Generic.new.config(:service)
+    expect(conf[:path]).to have_key(:topic)
   end
 
   it ":path key should include :device_token key" do
-    expect(Mqtt::Generic.new.config[:path]).to have_key(:device_token)
+    conf = Mqtt::Generic.new.config(:service)
+    expect(conf[:path]).to have_key(:device_token)
   end
 
   it "value for key :topic should be a class String" do
-    expect(Mqtt::Generic.new.config[:path][:topic].class).to eq String
+    conf = Mqtt::Generic.new.config(:service)
+    expect(conf[:path][:topic].class).to eq String
   end
 
   it "value for key :device_token should be a class String" do
-    expect(Mqtt::Generic.new.config[:path][:device_token].class).to eq String
+    conf = Mqtt::Generic.new.config(:service)
+    expect(conf[:path][:device_token].class).to eq String
   end
 end
 
