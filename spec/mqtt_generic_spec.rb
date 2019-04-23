@@ -53,24 +53,24 @@ RSpec.describe Mqtt::Generic do
     expect(Mqtt::Generic.new.config.class).to eq Hash
   end
 
-  it "method .config should include :mqtt key" do
-    expect(Mqtt::Generic.new.config).to have_key(:mqtt)
+  it "method .config should include :path key" do
+    expect(Mqtt::Generic.new.config).to have_key(:path)
   end
 
-  it ":mqtt key should include :topic key" do
-    expect(Mqtt::Generic.new.config[:mqtt]).to have_key(:topic)
+  it ":path key should include :topic key" do
+    expect(Mqtt::Generic.new.config[:path]).to have_key(:topic)
   end
 
-  it ":mqtt key should include :device_token key" do
-    expect(Mqtt::Generic.new.config[:mqtt]).to have_key(:device_token)
+  it ":path key should include :device_token key" do
+    expect(Mqtt::Generic.new.config[:path]).to have_key(:device_token)
   end
 
   it "value for key :topic should be a class String" do
-    expect(Mqtt::Generic.new.config[:mqtt][:topic].class).to eq String
+    expect(Mqtt::Generic.new.config[:path][:topic].class).to eq String
   end
 
   it "value for key :device_token should be a class String" do
-    expect(Mqtt::Generic.new.config[:mqtt][:device_token].class).to eq String
+    expect(Mqtt::Generic.new.config[:path][:device_token].class).to eq String
   end
 end
 

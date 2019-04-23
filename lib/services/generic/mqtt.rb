@@ -18,7 +18,7 @@ module Mqtt
 
     def deliver(message:, device_token: nil, topic: nil)
       raise(MissingParamException, "error: Topic name cannot be empty") if (device_token.nil? || device_token.empty?) && (topic.nil? || topic.empty?)
-      to = device_token.nil? ? topic + config[:mqtt][:topic] : config[:mqtt][:device_token] + device_token
+      to = device_token.nil? ? topic + config[:path][:topic] : config[:path][:device_token] + device_token
 
       process_result(@client.publish(payload(to: to, message: message)))
     end
@@ -38,7 +38,7 @@ module Mqtt
     end
 
     def config
-      Mqtt::Config.new(:mqtt).config
+      Mqtt::Config.new(:service).config
     end
   end
 end
