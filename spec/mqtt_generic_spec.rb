@@ -8,18 +8,13 @@ RSpec.describe Mqtt::Generic do
   end
 
   it "should be true if passed valid data" do
-    msg = { topic: 'inrepublic', message: 'message' }
-    expect(Mqtt::Generic.deliver(msg: msg)).to eq true
-  end
-
-  it "should be true if passed valid data" do
     msg = { device_token: 'dofxnAhnLnA', message: 'message' }
     expect(Mqtt::Generic.deliver(msg: msg)).to eq true
   end
 
   it "should be exception if passed invalid data" do
     expect { Mqtt::Generic.deliver( msg: { device_token: '', message: 'message' } ) }.to \
-      raise_error(Mqtt::Generic::MissingParamException, "error: Topic name cannot be empty")
+      raise_error(Mqtt::Generic::MissingParamException, "error: Device Token can`t be empty")
   end
 
   it "method .payload should be a class Hash" do

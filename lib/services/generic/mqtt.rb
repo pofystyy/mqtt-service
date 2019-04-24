@@ -17,7 +17,7 @@ module Mqtt
     end
 
     def deliver(message:, device_token: nil)
-      raise(MissingParamException, "error: Topic name cannot be empty") if (device_token.empty? if device_token)
+      raise(MissingParamException, "error: Device Token can`t be empty") if (device_token.empty? if device_token)
 
       conf = config(:service)
       to = device_token.nil? ? conf[:path][:topic] : "#{conf[:path][:device_token]}#{device_token}"

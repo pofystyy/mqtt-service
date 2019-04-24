@@ -1,5 +1,15 @@
 ## Usage
 
+Add setting attributes to create MQTT::Client
+~~~yml
+# mqtt_service/config/mqtt.yml
+
+:settings_line:
+  :host: 'localhost'
+  :port: 8883
+  :ssl: true
+~~~
+
 Add paths to build queues in MQTT broker
 ~~~yml
 # mqtt_service/config/service.yml
@@ -9,12 +19,4 @@ Add paths to build queues in MQTT broker
   :device_token: 'queue/devices/'     # queue name for direct messaging. Should end '/' to add at the end device_token
 ~~~
 
-Add data to connect to MQTT::Client
-~~~yml
-# mqtt_service/config/mqtt.yml
 
-:settings_line:
-  :host: 'localhost'
-  :port: 8883
-  :ssl: true
-~~~
