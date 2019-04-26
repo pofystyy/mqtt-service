@@ -1,13 +1,11 @@
 ## Usage
 
-Add setting attributes to create MQTT::Client
+Add connection string to [create MQTT::Client](https://github.com/njh/ruby-mqtt#connecting)
 ~~~yml
 # mqtt_service/config/mqtt.yml
 
-:settings_line:
-  :host: 'localhost'
-  :port: 8883
-  :ssl: true
+:mqtt:
+  :connection_string: 'localhost'
 ~~~
 
 Add paths to build queues in MQTT broker
