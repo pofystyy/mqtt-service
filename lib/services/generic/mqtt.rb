@@ -1,3 +1,4 @@
+require_relative 'config_validator'
 require_relative '../../../config'
 require 'yaml'
 require 'mqtt'
@@ -13,16 +14,23 @@ module Mqtt
     end
 
     def initialize
-      @client = MQTT::Client.connect(config(:mqtt)[:settings_line])
+      @client = MQTT::Client.connect(connection_string)
     end
 
     def deliver(message:, device_token: nil)
       raise(MissingParamException, "error: Device Token can`t be empty") if (device_token.empty? if device_token)
 
       conf = config(:service)
-      to = device_token.nil? ? conf[:path][:topic] : "#{conf[:path][:device_token]}#{device_token}"
+      to = device_token.nil? ? ConfigValidator.check(conf[:path][:topic]) : \
+        ("#{conf[:path][:device_token]}#{device_token}" if ConfigValidator.check(conf[:path][:device_token]))
 
       process_result(@client.publish(payload(to: to, message: message)))
+    end
+
+    private
+
+    def connection_string
+      ConfigValidator.check(config(:mqtt)[:mqtt][:connection_string])
     end
 
     def payload(to:, message:)
@@ -31,7 +39,6 @@ module Mqtt
         message: message
       }
     end
-
 
     def process_result(response)
       return true if response.nil?

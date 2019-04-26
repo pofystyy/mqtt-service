@@ -18,47 +18,52 @@ RSpec.describe Mqtt::Generic do
   end
 
   it "method .payload should be a class Hash" do
-    expect(Mqtt::Generic.new.payload(to: 'inrepublic', message: 'message').class).to eq Hash
+    expect(Mqtt::Generic.new.send(:payload, to: 'inrepublic', message: 'message').class).to eq Hash
   end
 
   it "should be succes if there is a record in the database" do
-    expect(Mqtt::Generic.new.process_result(nil)).to eq true
+    expect(Mqtt::Generic.new.send(:process_result, nil)).to eq true
   end
 
   it "should be exception if the entry in the database has not occurred" do
-    expect { Mqtt::Generic.new.process_result(2) }.to raise_error(Mqtt::Generic::DeliverException)
+    expect { Mqtt::Generic.new.send(:process_result, 2) }.to raise_error(Mqtt::Generic::DeliverException)
   end
 
   it "method .config should be a class Hash" do
-    expect(Mqtt::Generic.new.config(:service).class).to eq Hash
+    expect(Mqtt::Generic.new.send(:config, :service).class).to eq Hash
   end
 
-  it "should include :settings_line key" do
-    expect(Mqtt::Generic.new.config(:mqtt)).to have_key(:settings_line)
+  it "should include :mqtt key" do
+    expect(Mqtt::Generic.new.send(:config, :mqtt)).to have_key(:mqtt)
+  end
+
+  it "should include :connection_string key" do
+    expect(Mqtt::Generic.new.send(:config, :mqtt)[:mqtt]).to have_key(:connection_string)
+  end
+
+  it "value for key :connection_string should be a class String" do
+    expect(Mqtt::Generic.new.send(:config, :mqtt)[:mqtt][:connection_string].class).to eq String
   end
 
   it "should include :path key" do
-    expect(Mqtt::Generic.new.config(:service)).to have_key(:path)
+    expect(Mqtt::Generic.new.send(:config, :service)).to have_key(:path)
   end
 
   it ":path key should include :topic key" do
-    conf = Mqtt::Generic.new.config(:service)
-    expect(conf[:path]).to have_key(:topic)
+    conf =
+    expect(Mqtt::Generic.new.send(:config, :service)[:path]).to have_key(:topic)
   end
 
   it ":path key should include :device_token key" do
-    conf = Mqtt::Generic.new.config(:service)
-    expect(conf[:path]).to have_key(:device_token)
+    expect(Mqtt::Generic.new.send(:config, :service)[:path]).to have_key(:device_token)
   end
 
   it "value for key :topic should be a class String" do
-    conf = Mqtt::Generic.new.config(:service)
-    expect(conf[:path][:topic].class).to eq String
+    expect(Mqtt::Generic.new.send(:config, :service)[:path][:topic].class).to eq String
   end
 
   it "value for key :device_token should be a class String" do
-    conf = Mqtt::Generic.new.config(:service)
-    expect(conf[:path][:device_token].class).to eq String
+    expect(Mqtt::Generic.new.send(:config, :service)[:path][:device_token].class).to eq String
   end
 end
 
