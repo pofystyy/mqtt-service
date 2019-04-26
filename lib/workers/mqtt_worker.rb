@@ -5,8 +5,7 @@ class MqttWorker
              arguments: { 'x-dead-letter-exchange': 'inrepublic.mqtt.send-retry' }
   # Payload:
   # {
-  #  # device_token: 'dofxnAhnLnA',
-  #   topic: 'inrepublic',
+  #   device_token: 'dofxnAhnLnA',
   #   message: 'message'
   # }
   def work_with_params(deserialized_msg, _delivery_info, metadata)
