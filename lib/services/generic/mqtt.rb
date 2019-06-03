@@ -24,20 +24,13 @@ module Mqtt
       to = device_token.nil? ? ConfigValidator.check(conf[:path][:topic]) : \
         ("#{conf[:path][:device_token]}#{device_token}" if ConfigValidator.check(conf[:path][:device_token]))
 
-      process_result(@client.publish(payload(to: to, message: message)))
+      process_result(@client.publish(to, message))
     end
 
     private
 
     def connection_string
       ConfigValidator.check(config(:mqtt)[:mqtt][:connection_string])
-    end
-
-    def payload(to:, message:)
-      {
-        to: to,
-        message: message
-      }
     end
 
     def process_result(response)
